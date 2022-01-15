@@ -24,8 +24,11 @@ const App = () => {
   /*const stop = () => {
 
   }*/
-  
 
+  
+  /*const restart = () => {
+
+  }*/
 
   return (
     <div>
