@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import Time from './components/Time/Time.js';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-function App() {
+const App = () => {
+
+  const [time, setTime] = useState(0);
+  const [timer, setTimer] = useState(null);
+
+  useEffect(() => {
+      setInterval(() => {formatTime(time)}, 1); // czy tutaj należy użyć formatTime czy innej funkcji?
+      clearInterval(timer);
+      return () => {
+        if(timer) clearInterval(timer);
+     };
+    }, []);
+
+  const start = () => {
+    setTimer(setInterval(() => { 
+      setTime(prevValue => prevValue + 1);
+    }, 1))
+  };
+
+  /*const stop = () => {
+
+  }*/
+  
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Time value={time} />
+      <div>
+            <button action={start}>Start</button>
+            <button>Stop</button>
+            <button>Reset</button>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
