@@ -1,42 +1,34 @@
 import Time from './components/Time/Time.js';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import styles from './App.module.scss'
 
 const App = () => {
 
   const [time, setTime] = useState(0);
-  const [timer, setTimer] = useState(null);
+  const [timer, setTimer] = useState(false);
 
   useEffect(() => {
-      setInterval(() => {formatTime(time)}, 1); // czy tutaj należy użyć formatTime czy innej funkcji?
-      clearInterval(timer);
-      return () => {
-        if(timer) clearInterval(timer);
-     };
-    }, []);
+    let interval = null;
+    
+    if(timer) {
+      interval = setInterval(() => { 
+        setTime((prevValue) => prevValue + 10);
+        }, 10);
+    } else if(!timer){
+        clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [timer]);
 
-  const start = () => {
-    setTimer(setInterval(() => { 
-      setTime(prevValue => prevValue + 1);
-    }, 1))
-  };
-
-  /*const stop = () => {
-
-  }*/
-
-  
-  /*const restart = () => {
-
-  }*/
 
   return (
-    <div>
-      <Time value={time} />
+    <div className={styles.conti}>
+      <Time time={time} />
       <div>
-            <button action={start}>Start</button>
-            <button>Stop</button>
-            <button>Reset</button>
+            <button className={styles.btn} onClick={() => setTimer(true)}>Start</button>
+            <button className={styles.btn} onClick={() => setTimer(!true)}>Stop</button>
+            <button className={styles.btn} onClick={() => setTimer(setTime(0))}>Reset</button>
       </div>
     </div>
   );

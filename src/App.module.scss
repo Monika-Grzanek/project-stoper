@@ -1,0 +1,23 @@
+@import './styles/settings.scss';
+
+.conti {
+    background-color: $color-dark;
+    text-align: center;
+    padding: 40px;
+    margin: 50px 90px;
+}
+
+.btn {
+    background-color: $color-success;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: $color-light;
+
+    &:hover {
+        background: darken($color-success, 5%);
+        cursor: pointer;
+    }
+}
